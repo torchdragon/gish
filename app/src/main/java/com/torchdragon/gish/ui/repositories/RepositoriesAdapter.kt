@@ -3,14 +3,14 @@ package com.torchdragon.gish.ui.repositories
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.torchdragon.gish.BR
 import com.torchdragon.gish.R
 import com.torchdragon.gish.databinding.RepositoryItemBinding
 import com.torchdragon.gish.model.repositories.GitRepository
 
-class RepositoriesAdapter: ListAdapter<GitRepository, RepositoriesAdapter.RepositoryViewHolder>(GitRepository.DIFF_CALLBACK) {
+class RepositoriesAdapter: PagedListAdapter<GitRepository, RepositoriesAdapter.RepositoryViewHolder>(GitRepository.DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         val binding: RepositoryItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
@@ -20,12 +20,20 @@ class RepositoriesAdapter: ListAdapter<GitRepository, RepositoriesAdapter.Reposi
     }
 
     override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        when(val item = getItem(position)) {
+            null -> holder.missing()
+            else -> holder.bind(item)
+        }
     }
 
     class RepositoryViewHolder(private val binding: RepositoryItemBinding): RecyclerView.ViewHolder(binding.root) {
         internal fun bind(repository: GitRepository) {
             binding.setVariable(BR.repoItemModel, repository)
+            binding.executePendingBindings()
+        }
+
+        internal fun missing() {
+            binding.setVariable(BR.repoItemModel, GitRepository("Loading..."))
             binding.executePendingBindings()
         }
     }

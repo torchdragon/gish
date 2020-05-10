@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.torchdragon.gish.GishActivity
 import com.torchdragon.gish.R
 import com.torchdragon.gish.databinding.RepositoriesFragmentBinding
 
@@ -41,11 +40,5 @@ class RepositoriesFragment : Fragment() {
             })
 
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        viewModel.load()
     }
 }
