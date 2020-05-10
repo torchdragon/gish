@@ -10,7 +10,7 @@ class GishActivity : AppCompatActivity() {
         setContentView(R.layout.gish_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, RepositoriesFragment.newInstance())
+                    .replace(R.id.container, RepositoriesFragment.newInstance(), RepositoriesFragment.TAG)
                     .commitNow()
         }
     }
