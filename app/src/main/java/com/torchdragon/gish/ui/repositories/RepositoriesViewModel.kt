@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.torchdragon.gish.api.GitHubApi
-import com.torchdragon.gish.model.repositories.GitRepository
+import com.torchdragon.gish.model.repositories.GitHubRepository
 import com.torchdragon.gish.model.repositories.RepositoriesDataSourceFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -19,7 +19,7 @@ class RepositoriesViewModel : ViewModel() {
         .build()
         .create(GitHubApi::class.java)
 
-    val repositoriesData: LiveData<PagedList<GitRepository>> =
+    val repositoriesData: LiveData<PagedList<GitHubRepository>> =
         LivePagedListBuilder(RepositoriesDataSourceFactory("google", githubApi),
             PagedList.Config.Builder()
                 .setEnablePlaceholders(false)

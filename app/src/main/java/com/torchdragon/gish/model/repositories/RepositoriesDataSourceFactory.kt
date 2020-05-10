@@ -7,11 +7,11 @@ import com.torchdragon.gish.api.GitHubApi
 class RepositoriesDataSourceFactory(
     val org: String,
     val githubApi: GitHubApi
-) : DataSource.Factory<String, GitRepository>() {
+) : DataSource.Factory<String, GitHubRepository>() {
 
     private val _dataSource = MutableLiveData<RepositoriesDataSource>()
 
-    override fun create(): DataSource<String, GitRepository> {
+    override fun create(): DataSource<String, GitHubRepository> {
         return RepositoriesDataSource(org, githubApi).also {
             _dataSource.postValue(it)
         }

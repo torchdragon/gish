@@ -1,6 +1,6 @@
 package com.torchdragon.gish.api
 
-class Link(raw: String?) {
+class GitHubHeaderLink(raw: String?) {
 
     val next: String?
 
@@ -22,6 +22,6 @@ class Link(raw: String?) {
     }
 }
 
-fun String?.parseLink(): Link {
-    return Link(this)
+fun String?.parseLink(): GitHubHeaderLink {
+    return GitHubHeaderLink(this)
 }
