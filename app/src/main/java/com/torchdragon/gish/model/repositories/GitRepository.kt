@@ -1,7 +1,9 @@
 package com.torchdragon.gish.model.repositories
 
 import androidx.recyclerview.widget.DiffUtil
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class GitRepository(val name: String) {
 
     companion object {

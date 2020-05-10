@@ -1,33 +1,36 @@
 package com.torchdragon.gish.model.repositories
 
 import androidx.paging.PageKeyedDataSource
+import com.torchdragon.gish.api.GitHubApi
+import com.torchdragon.gish.api.parseLink
 
-class RepositoriesDataSource : PageKeyedDataSource<String, GitRepository>() {
-
-    private val max = 1000
+class RepositoriesDataSource(
+    private val org: String,
+    private val githubApi: GitHubApi
+) : PageKeyedDataSource<String, GitRepository>() {
 
     override fun loadInitial(
         params: LoadInitialParams<String>,
         callback: LoadInitialCallback<String, GitRepository>
     ) {
-        val data = List(params.requestedLoadSize) { i -> GitRepository("Repo #$i") }
-        callback.onResult(data, 0, max, null, "${params.requestedLoadSize}")
+        val response = githubApi.repositories(GitHubApi.ORG_REPOSITORIES_PATH.replace("{org}", org)).execute()
+
+        if (response.isSuccessful) {
+            val link = response.headers()["link"].parseLink()
+            callback.onResult(response.body() ?: listOf(), null, link.next)
+        }
     }
 
     override fun loadAfter(
         params: LoadParams<String>,
         callback: LoadCallback<String, GitRepository>
     ) {
-        val key = params.key.toInt()
+        val response = githubApi.repositories(params.key).execute()
 
-        val data = List(params.requestedLoadSize) { i -> GitRepository("Repo #${i + key}") }
-
-        val nextKey = when {
-            key + params.requestedLoadSize >= max -> null
-            else -> "${key + params.requestedLoadSize}"
+        if (response.isSuccessful) {
+            val link = response.headers()["link"].parseLink()
+            callback.onResult(response.body() ?: listOf(), link.next)
         }
-
-        callback.onResult(data, nextKey)
     }
 
     override fun loadBefore(
