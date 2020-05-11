@@ -2,7 +2,7 @@ package com.torchdragon.gish.api
 
 import com.torchdragon.gish.model.issues.GitHubIssue
 import com.torchdragon.gish.model.repositories.GitHubRepository
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
@@ -16,8 +16,8 @@ interface GitHubApi {
     }
 
     @GET
-    fun repositories(@Url pagingUrl: String, @Query("per_page") itemsPerPage: Int? = null): Call<List<GitHubRepository>>
+    suspend fun repositories(@Url pagingUrl: String, @Query("per_page") itemsPerPage: Int? = null): Response<List<GitHubRepository>>
 
     @GET
-    fun issues(@Url pagingUrl: String, @Query("per_page") itemsPerPage: Int? = null): Call<List<GitHubIssue>>
+    suspend fun issues(@Url pagingUrl: String, @Query("per_page") itemsPerPage: Int? = null): Response<List<GitHubIssue>>
 }

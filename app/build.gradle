@@ -53,6 +53,9 @@ dependencies {
 
     implementation 'com.helpchoice.kotlin:kurlet.jvm:1.0.1'
 
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5'
+
     testImplementation 'junit:junit:4.13'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

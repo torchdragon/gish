@@ -40,10 +40,9 @@ class IssuesFragment : Fragment() {
         _binding = DataBindingUtil.inflate(inflater, R.layout.issues_fragment, container, false)
         binding.viewAdapter = IssuesAdapter()
 
-        viewModel.issuesData.observe(viewLifecycleOwner,
-            Observer {
-                binding.viewAdapter?.submitList(it)
-            })
+        viewModel.issuesApiData.observe(viewLifecycleOwner, Observer {
+            binding.viewAdapter?.submitList(it)
+        })
 
         return binding.root
     }
