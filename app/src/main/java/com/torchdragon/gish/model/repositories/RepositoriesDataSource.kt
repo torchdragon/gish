@@ -4,6 +4,7 @@ import androidx.paging.PageKeyedDataSource
 import com.torchdragon.gish.api.GitHubApi
 import com.torchdragon.gish.api.parseLink
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class RepositoriesDataSource(
@@ -45,5 +46,11 @@ class RepositoriesDataSource(
         callback: LoadCallback<String, GitHubRepository>
     ) {
         // NO-OP, we'll always be loading from Page 1.
+    }
+
+    override fun invalidate() {
+        super.invalidate()
+
+        scope.cancel()
     }
 }
