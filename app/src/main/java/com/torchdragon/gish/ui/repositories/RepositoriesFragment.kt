@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.torchdragon.gish.GishActivity
 import com.torchdragon.gish.R
 import com.torchdragon.gish.databinding.RepositoriesFragmentBinding
 import com.torchdragon.gish.ui.issues.IssuesFragment
@@ -28,7 +29,8 @@ class RepositoriesFragment : Fragment(), IssueNavigationHandler {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(RepositoriesViewModel::class.java)
+        val factory = RepositoriesViewModelFactory((activity as GishActivity).gitHubApi)
+        viewModel = ViewModelProvider(this, factory).get(RepositoriesViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

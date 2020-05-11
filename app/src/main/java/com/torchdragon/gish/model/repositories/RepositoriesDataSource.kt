@@ -13,7 +13,7 @@ class RepositoriesDataSource(
         params: LoadInitialParams<String>,
         callback: LoadInitialCallback<String, GitHubRepository>
     ) {
-        val response = gitHubApi.repositories(GitHubApi.ORG_REPOSITORIES_PATH.replace("{org}", org)).execute()
+        val response = gitHubApi.repositories(GitHubApi.ORG_REPOSITORIES_PATH.replace("{org}", org), GitHubApi.ITEMS_PER_PAGE).execute()
 
         if (response.isSuccessful) {
             val link = response.parseLink()

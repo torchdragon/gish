@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.torchdragon.gish.GishActivity
 import com.torchdragon.gish.R
 import com.torchdragon.gish.databinding.IssuesFragmentBinding
 
@@ -17,7 +18,6 @@ class IssuesFragment : Fragment() {
     private val binding: IssuesFragmentBinding get() = _binding!!
 
     companion object {
-        fun newInstance() = IssuesFragment()
         const val URL_EXTRA = "com.torchdragon.gish.ui.issues.issue_fragment.url_extra"
         const val TAG = "com.torchdragon.ui.issues.issue_fragment"
     }
@@ -27,8 +27,9 @@ class IssuesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val factory = IssuesViewModelFactory(arguments
-            ?: throw IllegalArgumentException("No arguments passed to IssuesFragment"))
+        val factory = IssuesViewModelFactory(
+            (activity as GishActivity).gitHubApi,
+            arguments ?: throw IllegalArgumentException("No arguments passed to IssuesFragment"))
 
         viewModel = ViewModelProvider(this, factory).get(IssuesViewModel::class.java)
     }

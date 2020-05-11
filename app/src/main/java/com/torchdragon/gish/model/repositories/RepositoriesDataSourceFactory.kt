@@ -5,8 +5,8 @@ import androidx.paging.DataSource
 import com.torchdragon.gish.api.GitHubApi
 
 class RepositoriesDataSourceFactory(
-    val org: String,
-    val githubApi: GitHubApi
+    private val org: String,
+    private val githubApi: GitHubApi
 ) : DataSource.Factory<String, GitHubRepository>() {
 
     private val _dataSource = MutableLiveData<RepositoriesDataSource>()

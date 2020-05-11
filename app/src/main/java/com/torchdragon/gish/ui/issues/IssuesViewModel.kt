@@ -7,21 +7,14 @@ import androidx.paging.PagedList
 import com.torchdragon.gish.api.GitHubApi
 import com.torchdragon.gish.model.issues.GitHubIssue
 import com.torchdragon.gish.model.issues.IssuesDataSourceFactory
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.Executors
 
-class IssuesViewModel(initialUrl: String) : ViewModel() {
-
-    private val githubApi = Retrofit.Builder()
-        .baseUrl(GitHubApi.BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
-        .create(GitHubApi::class.java)
+class IssuesViewModel(gitHubApi: GitHubApi,
+                      initialUrl: String) : ViewModel() {
 
     val issuesData: LiveData<PagedList<GitHubIssue>> =
         LivePagedListBuilder(
-            IssuesDataSourceFactory(initialUrl, githubApi),
+            IssuesDataSourceFactory(initialUrl, gitHubApi),
             PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPageSize(GitHubApi.ITEMS_PER_PAGE)

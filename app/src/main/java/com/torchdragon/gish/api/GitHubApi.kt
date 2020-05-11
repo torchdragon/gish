@@ -16,8 +16,8 @@ interface GitHubApi {
     }
 
     @GET
-    fun repositories(@Url pagingUrl: String, @Query("per_page") itemsPerPage: Int = ITEMS_PER_PAGE): Call<List<GitHubRepository>>
+    fun repositories(@Url pagingUrl: String, @Query("per_page") itemsPerPage: Int? = null): Call<List<GitHubRepository>>
 
     @GET
-    fun issues(@Url pagingUrl: String, @Query("per_page") itemsPerPage: Int = ITEMS_PER_PAGE): Call<List<GitHubIssue>>
+    fun issues(@Url pagingUrl: String, @Query("per_page") itemsPerPage: Int? = null): Call<List<GitHubIssue>>
 }

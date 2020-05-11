@@ -13,7 +13,7 @@ class IssuesDataSource(
         params: LoadInitialParams<String>,
         callback: LoadInitialCallback<String, GitHubIssue>
     ) {
-        val response = gitHubApi.issues(initialUrl).execute()
+        val response = gitHubApi.issues(initialUrl, GitHubApi.ITEMS_PER_PAGE).execute()
 
         if (response.isSuccessful) {
             val link = response.parseLink()

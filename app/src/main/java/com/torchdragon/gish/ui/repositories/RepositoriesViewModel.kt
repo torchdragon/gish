@@ -11,16 +11,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.Executors
 
-class RepositoriesViewModel : ViewModel() {
-
-    private val githubApi = Retrofit.Builder()
-        .baseUrl(GitHubApi.BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
-        .create(GitHubApi::class.java)
+class RepositoriesViewModel(gitHubApi: GitHubApi) : ViewModel() {
 
     val repositoriesData: LiveData<PagedList<GitHubRepository>> =
-        LivePagedListBuilder(RepositoriesDataSourceFactory("google", githubApi),
+        LivePagedListBuilder(RepositoriesDataSourceFactory("google", gitHubApi),
             PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPageSize(GitHubApi.ITEMS_PER_PAGE)
