@@ -16,7 +16,7 @@ class IssuesDataSource(
         val response = gitHubApi.issues(initialUrl).execute()
 
         if (response.isSuccessful) {
-            val link = response.headers()["link"].parseLink()
+            val link = response.parseLink()
             callback.onResult(response.body() ?: listOf(), null, link.next)
         }
     }
@@ -28,7 +28,7 @@ class IssuesDataSource(
         val response = gitHubApi.issues(params.key).execute()
 
         if (response.isSuccessful) {
-            val link = response.headers()["link"].parseLink()
+            val link = response.parseLink()
             callback.onResult(response.body() ?: listOf(), link.next)
         }
     }

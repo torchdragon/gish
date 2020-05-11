@@ -16,7 +16,7 @@ class RepositoriesDataSource(
         val response = gitHubApi.repositories(GitHubApi.ORG_REPOSITORIES_PATH.replace("{org}", org)).execute()
 
         if (response.isSuccessful) {
-            val link = response.headers()["link"].parseLink()
+            val link = response.parseLink()
             callback.onResult(response.body() ?: listOf(), null, link.next)
         }
     }
@@ -28,7 +28,7 @@ class RepositoriesDataSource(
         val response = gitHubApi.repositories(params.key).execute()
 
         if (response.isSuccessful) {
-            val link = response.headers()["link"].parseLink()
+            val link = response.parseLink()
             callback.onResult(response.body() ?: listOf(), link.next)
         }
     }

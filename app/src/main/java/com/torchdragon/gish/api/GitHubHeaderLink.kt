@@ -1,5 +1,7 @@
 package com.torchdragon.gish.api
 
+import retrofit2.Response
+
 class GitHubHeaderLink(raw: String?) {
 
     val next: String?
@@ -22,6 +24,6 @@ class GitHubHeaderLink(raw: String?) {
     }
 }
 
-fun String?.parseLink(): GitHubHeaderLink {
-    return GitHubHeaderLink(this)
+fun Response<*>.parseLink(): GitHubHeaderLink {
+    return GitHubHeaderLink(headers().get("link"))
 }
