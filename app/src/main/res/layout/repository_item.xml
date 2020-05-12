@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View" />
         <variable
-            name="repoItemModel"
+            name="model"
             type="com.torchdragon.gish.model.repositories.GitHubRepository" />
         <variable
             name="repoHandlers"
@@ -18,15 +19,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
-            android:onClick="@{() -> repoHandlers.navigateTo(repoItemModel.issuesLink)}">
+            android:onClick="@{() -> repoHandlers.navigateTo(model)}">
+
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{repoItemModel.name}"
+                android:text="@{model.name}"
                 android:layout_margin="16dp"
+                android:textSize="18sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/issue_count"
                 tools:text="Google Repository Name"/>
+
+            <TextView
+                android:id="@+id/issue_count"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{String.valueOf(model.issuesCount)}"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:minWidth="60dp"
+                android:gravity="center"
+                android:background="@color/issueOpen"
+                android:padding="8dp"
+                android:visibility="@{ model.issuesCount > 0 ? View.VISIBLE : View.GONE }"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="300"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

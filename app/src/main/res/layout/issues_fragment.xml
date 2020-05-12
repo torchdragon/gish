@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.torchdragon.gish.model.issues.IssueState" />
+
         <variable
             name="issuesAdapter"
             type="com.torchdragon.gish.ui.issues.IssuesAdapter" />
@@ -40,24 +42,24 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:text="@string/filter_all"
-                android:checked="@{viewModel.filterData.type.equals(com.torchdragon.gish.model.issues.IssueState.all.type)}"
-                android:onClick="@{() -> viewModel.updateFilter(com.torchdragon.gish.model.issues.IssueState.all)}" />
+                android:checked="@{viewModel.filterData.type.equals(IssueState.all.type)}"
+                android:onClick="@{() -> viewModel.updateFilter(IssueState.all)}" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:text="@string/filter_open"
-                android:checked="@{viewModel.filterData.type.equals(com.torchdragon.gish.model.issues.IssueState.open.type)}"
-                android:onClick="@{() -> viewModel.updateFilter(com.torchdragon.gish.model.issues.IssueState.open)}" />
+                android:checked="@{viewModel.filterData.type.equals(IssueState.open.type)}"
+                android:onClick="@{() -> viewModel.updateFilter(IssueState.open)}" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:text="@string/filter_closed"
-                android:checked="@{viewModel.filterData.type.equals(com.torchdragon.gish.model.issues.IssueState.closed.type)}"
-                android:onClick="@{() -> viewModel.updateFilter(com.torchdragon.gish.model.issues.IssueState.closed)}" />
+                android:checked="@{viewModel.filterData.type.equals(IssueState.closed.type)}"
+                android:onClick="@{() -> viewModel.updateFilter(IssueState.closed)}" />
         </RadioGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

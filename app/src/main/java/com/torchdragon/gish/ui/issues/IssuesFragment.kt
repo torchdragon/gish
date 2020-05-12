@@ -18,7 +18,8 @@ class IssuesFragment : Fragment() {
     private val binding: IssuesFragmentBinding get() = _binding!!
 
     companion object {
-        const val URL_EXTRA = "com.torchdragon.gish.ui.issues.issue_fragment.url_extra"
+        const val URL_EXTRA = "com.torchdragon.gish.ui.issues.issues_fragment.url_extra"
+        const val TITLE_EXTRA = "com.torchdragon.gish.ui.issues.issues_fragment.title_extra"
         const val TAG = "com.torchdragon.ui.issues.issue_fragment"
     }
 
@@ -32,6 +33,10 @@ class IssuesFragment : Fragment() {
             arguments ?: throw IllegalArgumentException("No arguments passed to IssuesFragment"))
 
         viewModel = ViewModelProvider(this, factory).get(IssuesViewModel::class.java)
+
+        arguments?.getString(TITLE_EXTRA)?.let {
+            requireActivity().title = it
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

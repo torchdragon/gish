@@ -7,7 +7,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GitHubRepository(val name: String,
-                            @Json(name = "issues_url") val issuesRef: String) {
+                            @Json(name = "issues_url") val issuesRef: String,
+                            @Json(name = "open_issues_count") val issuesCount: Int = 0) {
 
     val issuesLink: String get() = UriTemplate(issuesRef).toURL(mapOf()).toString()
 

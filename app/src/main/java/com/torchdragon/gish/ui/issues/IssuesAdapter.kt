@@ -28,13 +28,13 @@ class IssuesAdapter: PagedListAdapter<GitHubIssue, IssuesAdapter.RepositoryViewH
 
     class RepositoryViewHolder(private val binding: IssueItemBinding): RecyclerView.ViewHolder(binding.root) {
         internal fun bind(issue: GitHubIssue) {
-            binding.issueItemModel = issue
+            binding.model = issue
             binding.context = itemView.context
             binding.executePendingBindings()
         }
 
         internal fun missing() {
-            binding.issueItemModel = GitHubIssue("Loading...", IssueState.all)
+            binding.model = GitHubIssue("Loading...", IssueState.all)
             binding.context = itemView.context
             binding.executePendingBindings()
         }

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.torchdragon.gish.BR
 import com.torchdragon.gish.R
 import com.torchdragon.gish.databinding.RepositoryItemBinding
 import com.torchdragon.gish.model.repositories.GitHubRepository
@@ -29,13 +28,13 @@ class RepositoriesAdapter(private val navigationHandler: IssueNavigationHandler)
 
     class RepositoryViewHolder(private val binding: RepositoryItemBinding, private val navigationHandler: IssueNavigationHandler): RecyclerView.ViewHolder(binding.root) {
         internal fun bind(repository: GitHubRepository) {
-            binding.setVariable(BR.repoItemModel, repository)
-            binding.setVariable(BR.repoHandlers, navigationHandler)
+            binding.model = repository
+            binding.repoHandlers = navigationHandler
             binding.executePendingBindings()
         }
 
         internal fun missing() {
-            binding.setVariable(BR.repoItemModel, GitHubRepository("Loading...", ""))
+            binding.model = GitHubRepository("Loading...", "")
             binding.executePendingBindings()
         }
     }

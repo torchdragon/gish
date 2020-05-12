@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.torchdragon.gish.GishActivity
 import com.torchdragon.gish.R
 import com.torchdragon.gish.databinding.RepositoriesFragmentBinding
+import com.torchdragon.gish.model.repositories.GitHubRepository
 import com.torchdragon.gish.ui.issues.IssuesFragment
 
 class RepositoriesFragment : Fragment(), IssueNavigationHandler {
@@ -48,10 +49,19 @@ class RepositoriesFragment : Fragment(), IssueNavigationHandler {
         return binding.root
     }
 
-    override fun navigateTo(destination: String) {
-        Log.v("Gish", "Attempting to navigate to $destination")
+    override fun onResume() {
+        super.onResume()
+
+        context?.let {
+            requireActivity().title = it.getString(R.string.app_name)
+        }
+    }
+
+    override fun navigateTo(destination: GitHubRepository) {
+        Log.v("Gish", "Attempting to navigate to $destination.name")
         val bundle = Bundle().apply {
-            putString(IssuesFragment.URL_EXTRA, destination)
+            putString(IssuesFragment.URL_EXTRA, destination.issuesLink)
+            putString(IssuesFragment.TITLE_EXTRA, destination.name )
         }
 
         parentFragmentManager
