@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">gish</string>
+    <string name="filter_all">All</string>
+    <string name="filter_open">Open</string>
+    <string name="filter_closed">Closed</string>
 </resources>

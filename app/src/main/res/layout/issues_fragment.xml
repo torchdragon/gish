@@ -5,8 +5,12 @@
 
     <data>
         <variable
-            name="viewAdapter"
+            name="issuesAdapter"
             type="com.torchdragon.gish.ui.issues.IssuesAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.torchdragon.gish.ui.issues.IssuesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,9 +22,42 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/repositories"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/filter_group"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:adapter="@{viewAdapter}" />
+            app:adapter="@{issuesAdapter}" />
 
+        <RadioGroup
+            android:id="@+id/filter_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/filter_all"
+                android:checked="@{viewModel.filterData.type.equals(com.torchdragon.gish.model.issues.IssueState.all.type)}"
+                android:onClick="@{() -> viewModel.updateFilter(com.torchdragon.gish.model.issues.IssueState.all)}" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/filter_open"
+                android:checked="@{viewModel.filterData.type.equals(com.torchdragon.gish.model.issues.IssueState.open.type)}"
+                android:onClick="@{() -> viewModel.updateFilter(com.torchdragon.gish.model.issues.IssueState.open)}" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/filter_closed"
+                android:checked="@{viewModel.filterData.type.equals(com.torchdragon.gish.model.issues.IssueState.closed.type)}"
+                android:onClick="@{() -> viewModel.updateFilter(com.torchdragon.gish.model.issues.IssueState.closed)}" />
+        </RadioGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

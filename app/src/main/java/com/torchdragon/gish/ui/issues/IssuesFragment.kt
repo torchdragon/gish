@@ -38,10 +38,11 @@ class IssuesFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
 
         _binding = DataBindingUtil.inflate(inflater, R.layout.issues_fragment, container, false)
-        binding.viewAdapter = IssuesAdapter()
+        binding.issuesAdapter = IssuesAdapter()
+        binding.viewModel = viewModel
 
         viewModel.issuesApiData.observe(viewLifecycleOwner, Observer {
-            binding.viewAdapter?.submitList(it)
+            binding.issuesAdapter?.submitList(it)
         })
 
         return binding.root

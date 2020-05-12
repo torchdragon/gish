@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.torchdragon.gish.BR
 import com.torchdragon.gish.R
 import com.torchdragon.gish.databinding.IssueItemBinding
 import com.torchdragon.gish.model.issues.GitHubIssue
+import com.torchdragon.gish.model.issues.IssueState
 
 class IssuesAdapter: PagedListAdapter<GitHubIssue, IssuesAdapter.RepositoryViewHolder>(GitHubIssue.DIFF_CALLBACK) {
 
@@ -28,12 +28,14 @@ class IssuesAdapter: PagedListAdapter<GitHubIssue, IssuesAdapter.RepositoryViewH
 
     class RepositoryViewHolder(private val binding: IssueItemBinding): RecyclerView.ViewHolder(binding.root) {
         internal fun bind(issue: GitHubIssue) {
-            binding.setVariable(BR.issueItemModel, issue)
+            binding.issueItemModel = issue
+            binding.context = itemView.context
             binding.executePendingBindings()
         }
 
         internal fun missing() {
-            binding.setVariable(BR.issueItemModel, GitHubIssue("Loading...", ""))
+            binding.issueItemModel = GitHubIssue("Loading...", IssueState.all)
+            binding.context = itemView.context
             binding.executePendingBindings()
         }
     }
