@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 
 class IssuesDataSource(
     private val initialUrl: String,
+    private val state: IssueState,
     private val gitHubApi: GitHubApi,
     private val scope: CoroutineScope
 ) : PageKeyedDataSource<String, GitHubIssue>() {
@@ -18,7 +19,7 @@ class IssuesDataSource(
         callback: LoadInitialCallback<String, GitHubIssue>
     ) {
         scope.launch {
-            val response = gitHubApi.issues(initialUrl, GitHubApi.ITEMS_PER_PAGE)
+            val response = gitHubApi.issues(initialUrl, state.type, GitHubApi.ITEMS_PER_PAGE)
 
             if (response.isSuccessful) {
                 val link = response.parseLink()
@@ -46,11 +47,5 @@ class IssuesDataSource(
         callback: LoadCallback<String, GitHubIssue>
     ) {
         // NO-OP, we'll always be loading from Page 1.
-    }
-
-    override fun invalidate() {
-        super.invalidate()
-
-        scope.cancel()
     }
 }

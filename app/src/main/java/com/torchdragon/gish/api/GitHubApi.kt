@@ -19,5 +19,5 @@ interface GitHubApi {
     suspend fun repositories(@Url pagingUrl: String, @Query("per_page") itemsPerPage: Int? = null): Response<List<GitHubRepository>>
 
     @GET
-    suspend fun issues(@Url pagingUrl: String, @Query("per_page") itemsPerPage: Int? = null): Response<List<GitHubIssue>>
+    suspend fun issues(@Url pagingUrl: String,  @Query("state") state: String? = null, @Query("per_page") itemsPerPage: Int? = null): Response<List<GitHubIssue>>
 }
